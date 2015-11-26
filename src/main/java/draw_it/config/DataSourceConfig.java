@@ -29,18 +29,32 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DataSourceConfig {
 
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+			registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+	}
+
     @Bean
     public MultipartResolver multipartResolver() {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
         resolver.setMaxUploadSize(100000);
         return resolver;
     }
+    
+	@Autowired
+    @Bean
+    public DataSource dataSource(Properties envProperties) {
+        HikariConfig config = new HikariConfig();
+        config.setDriverClassName(envProperties.getProperty("jdbc.driverClassName"));
+        config.setJdbcUrl(envProperties.getProperty("jdbc.url"));
+        config.setUsername(envProperties.getProperty("jdbc.username"));
+        config.setPassword(envProperties.getProperty("jdbc.password"));
 
+        DataSource dataSource = new HikariDataSource(config);
 
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+        return dataSource;
     }
 
+	
     @Bean
     public Properties envProperties() {
         Properties prop = new Properties();
@@ -59,22 +73,6 @@ public class DataSourceConfig {
         return prop;
     }
 
-
-    @Autowired
-    @Bean
-    public DataSource dataSource(Properties envProperties) {
-        HikariConfig config = new HikariConfig();
-        config.setDriverClassName(envProperties.getProperty("jdbc.driverClassName"));
-        config.setJdbcUrl(envProperties.getProperty("jdbc.url"));
-        config.setUsername(envProperties.getProperty("jdbc.username"));
-        config.setPassword(envProperties.getProperty("jdbc.password"));
-
-        DataSource dataSource = new HikariDataSource(config);
-
-        return dataSource;
-    }
-
-
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
                                                                        Properties envProperties) {
@@ -85,8 +83,7 @@ public class DataSourceConfig {
 
         Properties jpaProperties = new Properties();
 
-        jpaProperties.put("hibernate.dialect",
-                envProperties.getProperty("hibernate.dialect"));
+        jpaProperties.put("hibernate.dialect", envProperties.getProperty("hibernate.dialect"));
         jpaProperties.put("hibernate.hbm2ddl.auto",
                 envProperties.getProperty("hibernate.hbm2ddl.auto"));
         jpaProperties.put("hibernate.ejb.naming_strategy",
