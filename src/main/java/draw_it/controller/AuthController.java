@@ -35,10 +35,16 @@ public class AuthController {
     @Qualifier(value = "authenticationManager")
     private AuthenticationManager authenticationManager;
 
-//    @Autowired
-//    @Qualifier("authUserRepository")
-//    private AuthUserRepository authUserRepository;
-
+	 @RequestMapping(value = "/login_as_auth", method = RequestMethod.POST)
+    public String loginAsAuth(HttpServletRequest request, HttpServletResponse response) {
+     Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+      if (auth != null) {
+         new SecurityContextLogoutHandler().logout(request, response, auth);
+      }
+      SecurityContextHolder.getContext().setAuthentication(null);
+       return "redirect:/login";
+    }
+	
     @RequestMapping(value = {"/login"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String login(
             @RequestParam(value = "error", required = false) String error,
@@ -65,22 +71,11 @@ public class AuthController {
     @RequestMapping(value = "/enter_anonymously", method = RequestMethod.POST)
     public String enterAnonymously() {
 
-        Authentication request = new UsernamePasswordAuthenticationToken(
-                FreeUser.FREE_USER_LOGIN, FreeUser.FREE_USER_PASSWORD);
+        Authentication request = new UsernamePasswordAuthenticationToken(FreeUser.FREE_USER_LOGIN, FreeUser.FREE_USER_PASSWORD);
         Authentication result = authenticationManager.authenticate(request);
         SecurityContextHolder.getContext().setAuthentication(result);
 
         return "redirect:/main";
-    }
-
-    @RequestMapping(value = "/login_as_auth", method = RequestMethod.POST)
-    public String loginAsAuth(HttpServletRequest request, HttpServletResponse response) {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        SecurityContextHolder.getContext().setAuthentication(null);
-        return "redirect:/login";
     }
 
 }

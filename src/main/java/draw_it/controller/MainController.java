@@ -63,22 +63,25 @@ public class MainController {
         return jsonMessage;
     }
 
-    @RequestMapping(value = "/room/add", method = RequestMethod.GET)
-    public String addRoom(final AtmosphereResource resource) throws JsonProcessingException {
-        Room room = new Room();
-        roomRepository.addRoom(room);
+	    @RequestMapping(value = "room/leave/{roomId}", method = RequestMethod.GET)
+    public String leaveRoom(final AtmosphereResource resource,
+                           @PathVariable Long roomId) throws JsonProcessingException {
+        Room room = roomRepository.findRoomById(roomId);
+        if (room != null) {
 
-        String jsonMessage = messageUtils.formJsonListMessage(new RoomMessage(RoomMessage.ADDED_ACTION, room));
+            User currentUser = SecurityUtils.getCurrentUser();
+            if (room.containsMember(currentUser)) {
+                room.removeMember(new User(currentUser));
 
-        Broadcaster broadcaster = atmosphereUtils.getBroadcasterFactory().lookup("/roomlist");
-        broadcaster.broadcast(jsonMessage);
+                String jsonMessage = messageUtils.formJsonListMessage
+                        (new MemberMessage(MemberMessage.MEMBER_REMOVED, currentUser));
+                atmosphereUtils.getBroadcasterFactory().lookup("/room/" + roomId, true).broadcast(jsonMessage);
+            }
+        }
 
-        // Starting the timer and so on.
-        room.startLifeCycle(atmosphereUtils, messageUtils, wordService, roomRepository, userProfileRepository);
-
-        return "redirect:/room/join/" + room.getId();
+        return "redirect:/main";
     }
-
+	
     @RequestMapping(value = "room/join/{roomId}", method = RequestMethod.GET)
     public String joinRoom(final AtmosphereResource resource,
                            @PathVariable Long roomId) throws JsonProcessingException {
@@ -119,23 +122,20 @@ public class MainController {
 
         return model;
     }
+	
+	@RequestMapping(value = "/room/add", method = RequestMethod.GET)
+    public String addRoom(final AtmosphereResource resource) throws JsonProcessingException {
+        Room room = new Room();
+        roomRepository.addRoom(room);
 
-    @RequestMapping(value = "room/leave/{roomId}", method = RequestMethod.GET)
-    public String leaveRoom(final AtmosphereResource resource,
-                           @PathVariable Long roomId) throws JsonProcessingException {
-        Room room = roomRepository.findRoomById(roomId);
-        if (room != null) {
+        String jsonMessage = messageUtils.formJsonListMessage(new RoomMessage(RoomMessage.ADDED_ACTION, room));
 
-            User currentUser = SecurityUtils.getCurrentUser();
-            if (room.containsMember(currentUser)) {
-                room.removeMember(new User(currentUser));
+        Broadcaster broadcaster = atmosphereUtils.getBroadcasterFactory().lookup("/roomlist");
+        broadcaster.broadcast(jsonMessage);
 
-                String jsonMessage = messageUtils.formJsonListMessage
-                        (new MemberMessage(MemberMessage.MEMBER_REMOVED, currentUser));
-                atmosphereUtils.getBroadcasterFactory().lookup("/room/" + roomId, true).broadcast(jsonMessage);
-            }
-        }
+        // Starting the timer and so on.
+        room.startLifeCycle(atmosphereUtils, messageUtils, wordService, roomRepository, userProfileRepository);
 
-        return "redirect:/main";
+        return "redirect:/room/join/" + room.getId();
     }
 }

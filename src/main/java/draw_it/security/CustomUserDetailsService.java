@@ -28,7 +28,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         User user = null;
         if (username.equals(FreeUser.FREE_USER_LOGIN)) {
-            // A small crutch.
             user = new FreeUser();
         } else {
             user = userRepository.findByLogin(username);
@@ -40,37 +39,5 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new CustomUserDetails(user);
     }
 
-    private final static class CustomUserDetails extends User implements UserDetails {
-
-        public CustomUserDetails(User user) {
-            super(user);
-        }
-
-        public Collection<? extends GrantedAuthority> getAuthorities() {
-            return AuthorityUtils.createAuthorityList(getRole());
-        }
-
-        public String getUsername() {
-            return getLogin();
-        }
-
-        public boolean isAccountNonExpired() {
-            return true;
-        }
-
-        public boolean isAccountNonLocked() {
-            return true;
-        }
-
-        public boolean isCredentialsNonExpired() {
-            return true;
-        }
-
-        public boolean isEnabled() {
-            return true;
-        }
-
-        private static final long serialVersionUID = 2255333352L;
-
-    }
+    
 }

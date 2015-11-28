@@ -15,9 +15,6 @@ public class UserProfileServiceImpl implements UserProfileService {
     @Autowired
     private UserProfileRepository userProfileRepository;
 
-//    @Autowired
-//    private AuthUserRepository authUserRepository;
-
     @Autowired
     private DataSource dataSource;
 
@@ -59,16 +56,16 @@ public class UserProfileServiceImpl implements UserProfileService {
         String sql = null;
         if (!enableImage) {
             sql = "UPDATE user_profile SET name=?, surname=?,email=?, country=? WHERE id=?;";
-            jdbcTemplate.update(sql, userProfile.getName(), userProfile.getSurname(), userProfile.getEmail(),
-                    userProfile.getCountry(), userProfile.getId());
+            jdbcTemplate.update(sql, userInfo.getName(), userInfo.getSurname(), userInfo.getEmail(),
+                    userInfo.getCountry(), userInfo.getId());
 
         } else {
             sql = "UPDATE user_profile SET name=?, surname=?,email=?, country=?, avatar=? WHERE id=?;";
-            jdbcTemplate.update(sql, userProfile.getName(), userProfile.getSurname(), userProfile.getEmail(),
-                    userProfile.getCountry(), userProfile.getAvatar(), userProfile.getId());
+            jdbcTemplate.update(sql, userInfo.getName(), userInfo.getSurname(), userInfo.getEmail(),
+                    userInfo.getCountry(), userInfo.getAvatar(), userInfo.getId());
         }
         String sqlAuth ="UPDATE auth_user SET  login=?, password=? WHERE profile_id=?";
-        jdbcTemplate.update(sqlAuth, login, password, userProfile.getId());
+        jdbcTemplate.update(sqlAuth, login, password, userInfo.getId());
     }
 
 

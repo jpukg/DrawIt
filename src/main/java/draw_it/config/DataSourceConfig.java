@@ -74,8 +74,7 @@ public class DataSourceConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource,
-                                                                       Properties envProperties) {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource, Properties envProperties) {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
@@ -84,19 +83,13 @@ public class DataSourceConfig {
         Properties jpaProperties = new Properties();
 
         jpaProperties.put("hibernate.dialect", envProperties.getProperty("hibernate.dialect"));
-        jpaProperties.put("hibernate.hbm2ddl.auto",
-                envProperties.getProperty("hibernate.hbm2ddl.auto"));
-        jpaProperties.put("hibernate.ejb.naming_strategy",
-                envProperties.getProperty("hibernate.ejb.naming_strategy"));
+        jpaProperties.put("hibernate.hbm2ddl.auto",  envProperties.getProperty("hibernate.hbm2ddl.auto"));
+        jpaProperties.put("hibernate.ejb.naming_strategy", envProperties.getProperty("hibernate.ejb.naming_strategy"));
         // Not necessary in the deploy version.
-        jpaProperties.put("hibernate.show_sql",
-                envProperties.getProperty("hibernate.show_sql"));
-        jpaProperties.put("hibernate.format_sql",
-                envProperties.getProperty("hibernate.format_sql"));
-        jpaProperties.put("hibernate.hbm2ddl.import_files",
-                envProperties.get("hibernate.hbm2ddl.import_files"));
-        jpaProperties.put("hibernate.hbm2ddl.import_files_sql_extractor",
-                envProperties.get("hibernate.hbm2ddl.import_files_sql_extractor"));
+        jpaProperties.put("hibernate.show_sql", envProperties.getProperty("hibernate.show_sql"));
+        jpaProperties.put("hibernate.format_sql", envProperties.getProperty("hibernate.format_sql"));
+        jpaProperties.put("hibernate.hbm2ddl.import_files",  envProperties.get("hibernate.hbm2ddl.import_files"));
+        jpaProperties.put("hibernate.hbm2ddl.import_files_sql_extractor", envProperties.get("hibernate.hbm2ddl.import_files_sql_extractor"));
 
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 
