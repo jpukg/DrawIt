@@ -39,5 +39,37 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new CustomUserDetails(user);
     }
 
-    
+    private final static class CustomUserDetails extends User implements UserDetails {
+
+		private static final long serialVersionUID = 2255333352L;
+	
+        public CustomUserDetails(User user) {
+            super(user);
+        }
+
+        public Collection<? extends GrantedAuthority> getAuthorities() {
+            return AuthorityUtils.createAuthorityList(getRole());
+        }
+
+        public String getUsername() {
+            return getLogin();
+        }
+
+        public boolean isAccountNonExpired() {
+            return true;
+        }
+
+        public boolean isAccountNonLocked() {
+            return true;
+        }
+
+        public boolean isCredentialsNonExpired() {
+            return true;
+        }
+
+        public boolean isEnabled() {
+            return true;
+        }
+
+    }
 }
