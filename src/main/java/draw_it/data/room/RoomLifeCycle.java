@@ -20,6 +20,7 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 public class RoomLifeCycle extends Thread {
+
     public static final int GAME_INTERVAL = 30 * 1000;
     public static final int TURN_INTERVAL = 30 * 1000;
 
