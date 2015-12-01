@@ -14,8 +14,10 @@ public class CountryContainer {
         if (countries == null) {
             String[] locales = Locale.getISOCountries();
             Locale.setDefault(new Locale("eu"));
-            countries = new ArrayList<>();
-            for (String s : locales) {
+            
+	    countries = new ArrayList<>();
+            
+	    for (String s : locales) {
                 Locale obj = new Locale("", s);
                 countries.add(obj.getDisplayCountry());
             }

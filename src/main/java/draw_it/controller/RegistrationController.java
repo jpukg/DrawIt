@@ -1,4 +1,4 @@
-package draw_it.controller;
+﻿package draw_it.controller;
 
 
 import draw_it.data.user.users_registration.UserProfileRepository;
@@ -42,15 +42,19 @@ public class RegistrationController {
         model.addAttribute("countries", CountryContainer.getCountries());
 
         StringBuilder errors = new StringBuilder();
-        boolean isSave = true;
+        
+	boolean isSave = true;
+
         if (userProfile.getEmail().isEmpty() || login.isEmpty()) {
             errors.append("Email and login cannot be empty.<br/>");
         } else {
             model.addAttribute("login", login);
-//            Check password
+	//            Check password
             Matcher matcher;
-            matcher = patternPassword.matcher(password);
-            if (!password.equals(passwordRepeat)) {
+        
+	    matcher = patternPassword.matcher(password);
+        
+	    if (!password.equals(passwordRepeat)) {
                 errors.append("The password repeating is bad.<br/>");
                 isSave = false;
             } else {
@@ -60,8 +64,10 @@ public class RegistrationController {
                 }
             }
 //              Check email
-            matcher = patternEmail.matcher(userProfile.getEmail());
-            if (!matcher.find()) {
+        
+	    matcher = patternEmail.matcher(userProfile.getEmail());
+        
+	    if (!matcher.find()) {
                 errors.append("Email is not valid.<br/>");
                 isSave = false;
             }

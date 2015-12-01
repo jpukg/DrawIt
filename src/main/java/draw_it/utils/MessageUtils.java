@@ -29,6 +29,7 @@ public final class MessageUtils {
 
         for (Message message : messages) {
             String jsonMessage = objectMapper.writeValueAsString(message);
+
             result.append(jsonMessage);
             result.append(", ");
         }
