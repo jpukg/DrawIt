@@ -24,7 +24,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import draw_it.data.user.UserProfile;
+
 @Controller
 public class RoomController {
 

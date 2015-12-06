@@ -1,11 +1,10 @@
 package draw_it.data.user.users_registration;
 
+import draw_it.data.user.UserProfile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import draw_it.data.user.UserProfile;
 
 import javax.sql.DataSource;
 
@@ -14,6 +13,9 @@ public class UserProfileServiceImpl implements UserProfileService {
 
     @Autowired
     private UserProfileRepository userProfileRepository;
+
+//    @Autowired
+//    private AuthUserRepository authUserRepository;
 
     @Autowired
     private DataSource dataSource;
@@ -56,16 +58,16 @@ public class UserProfileServiceImpl implements UserProfileService {
         String sql = null;
         if (!enableImage) {
             sql = "UPDATE user_profile SET name=?, surname=?,email=?, country=? WHERE id=?;";
-            jdbcTemplate.update(sql, userInfo.getName(), userInfo.getSurname(), userInfo.getEmail(),
-                    userInfo.getCountry(), userInfo.getId());
+            jdbcTemplate.update(sql, userProfile.getName(), userProfile.getSurname(), userProfile.getEmail(),
+                    userProfile.getCountry(), userProfile.getId());
 
         } else {
             sql = "UPDATE user_profile SET name=?, surname=?,email=?, country=?, avatar=? WHERE id=?;";
-            jdbcTemplate.update(sql, userInfo.getName(), userInfo.getSurname(), userInfo.getEmail(),
-                    userInfo.getCountry(), userInfo.getAvatar(), userInfo.getId());
+            jdbcTemplate.update(sql, userProfile.getName(), userProfile.getSurname(), userProfile.getEmail(),
+                    userProfile.getCountry(), userProfile.getAvatar(), userProfile.getId());
         }
         String sqlAuth ="UPDATE auth_user SET  login=?, password=? WHERE profile_id=?";
-        jdbcTemplate.update(sqlAuth, login, password, userInfo.getId());
+        jdbcTemplate.update(sqlAuth, login, password, userProfile.getId());
     }
 
 

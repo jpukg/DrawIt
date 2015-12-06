@@ -7,13 +7,13 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     public User() {
-
     }
 
     public User(User user) {
-        login = user.login;
-        password = user.password;
-        role = user.role;
+        this.login = user.login;
+        this.password = user.password;
+        this.role = user.role;
+        this.profile = user.profile;
     }
 
     protected String login;
@@ -23,6 +23,8 @@ public class User implements Serializable {
 
     @JsonIgnore
     protected String role;
+
+    protected UserProfile profile;
 
     public String getLogin() {
         return login;
@@ -46,6 +48,14 @@ public class User implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public UserProfile getProfile() {
+        return profile;
+    }
+
+    public void setProfile(UserProfile profile) {
+        this.profile = profile;
     }
 
     @Override

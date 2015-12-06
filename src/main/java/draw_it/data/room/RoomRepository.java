@@ -18,7 +18,6 @@ public class RoomRepository {
     private CopyOnWriteArrayList<Room> rooms = new CopyOnWriteArrayList<>();
 
     public synchronized void addRoom(Room room) {
-	
         if (room.getId() == 0) {
             if (rooms.size() > 0) {
                 room.setId(rooms.get(rooms.size() - 1).getId() + 1);
@@ -33,7 +32,6 @@ public class RoomRepository {
     }
 
     public synchronized Room findRoomById(long roomId) {
-	
         for (Room r : rooms) {
             if (r.getId() == roomId) {
                 return r;

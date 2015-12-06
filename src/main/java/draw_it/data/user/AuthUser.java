@@ -9,7 +9,6 @@ import javax.validation.constraints.NotNull;
 public class AuthUser extends User {
 
     public static final String ROLE_AUTH = "ROLE_AUTH";
-    private UserProfile profile;
 
     public AuthUser() {
         role = ROLE_AUTH;

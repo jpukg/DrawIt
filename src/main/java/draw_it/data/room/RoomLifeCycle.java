@@ -5,10 +5,12 @@ import draw_it.data.game.Player;
 import draw_it.data.message.*;
 import draw_it.data.user.AuthUser;
 import draw_it.data.user.User;
+import draw_it.data.user.UserProfile;
 import draw_it.data.user.users_registration.UserProfileRepository;
 import draw_it.data.words.WordService;
 import draw_it.utils.AtmosphereUtils;
 import draw_it.utils.MessageUtils;
+import draw_it.utils.SecurityUtils;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.Broadcaster;
 
@@ -20,7 +22,6 @@ import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 public class RoomLifeCycle extends Thread {
-
     public static final int GAME_INTERVAL = 30 * 1000;
     public static final int TURN_INTERVAL = 30 * 1000;
 
@@ -224,10 +225,10 @@ public class RoomLifeCycle extends Thread {
         for (Player player : players){
             User user = player.getUser();
             if (user.getRole().equals(AuthUser.ROLE_AUTH)){
-              /*  UserProfile profile = user.getProfile();
+                UserProfile profile = user.getProfile();
                 profile.setGameAmount(profile.getGameAmount()+1);
                 profile.setPointAmount(profile.getPointAmount() + player.getPoints());
-                userProfileRepository.save(profile);*/
+                userProfileRepository.save(profile);
             }
         }
     }

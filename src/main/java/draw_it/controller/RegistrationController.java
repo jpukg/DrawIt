@@ -1,8 +1,10 @@
-﻿package draw_it.controller;
+package draw_it.controller;
 
 
+import draw_it.data.user.UserProfile;
 import draw_it.data.user.users_registration.UserProfileRepository;
 import draw_it.data.user.users_registration.UserProfileService;
+import draw_it.data.words.WordService;
 import draw_it.utils.CountryContainer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,7 +18,7 @@ import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import draw_it.data.user.UserProfile;
+
 @Controller
 public class RegistrationController {
 
@@ -42,19 +44,15 @@ public class RegistrationController {
         model.addAttribute("countries", CountryContainer.getCountries());
 
         StringBuilder errors = new StringBuilder();
-        
-	boolean isSave = true;
-
+        boolean isSave = true;
         if (userProfile.getEmail().isEmpty() || login.isEmpty()) {
             errors.append("Email and login cannot be empty.<br/>");
         } else {
             model.addAttribute("login", login);
-	//            Check password
+//            Check password
             Matcher matcher;
-        
-	    matcher = patternPassword.matcher(password);
-        
-	    if (!password.equals(passwordRepeat)) {
+            matcher = patternPassword.matcher(password);
+            if (!password.equals(passwordRepeat)) {
                 errors.append("The password repeating is bad.<br/>");
                 isSave = false;
             } else {
@@ -64,10 +62,8 @@ public class RegistrationController {
                 }
             }
 //              Check email
-        
-	    matcher = patternEmail.matcher(userProfile.getEmail());
-        
-	    if (!matcher.find()) {
+            matcher = patternEmail.matcher(userProfile.getEmail());
+            if (!matcher.find()) {
                 errors.append("Email is not valid.<br/>");
                 isSave = false;
             }
