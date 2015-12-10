@@ -18,7 +18,6 @@ import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +35,9 @@ public class AuthController {
     @Qualifier(value = "authenticationManager")
     private AuthenticationManager authenticationManager;
 
-    @Autowired
-    private UserProfileRepository userProfileRepository;
+//    @Autowired
+//    @Qualifier("authUserRepository")
+//    private AuthUserRepository authUserRepository;
 
     @RequestMapping(value = {"/login"}, method = {RequestMethod.GET, RequestMethod.POST})
     public String login(
@@ -45,16 +45,6 @@ public class AuthController {
             @RequestParam(value = "logout", required = false) String logout,
             @RequestParam(value = "registered", required = false) String registered,
             ModelMap model) {
-
-        int allGames = 0;
-        List<UserProfile> userProfiles = new ArrayList<>();
-        for (UserProfile profile : userProfileRepository.findAll()) {
-            allGames += profile.getGameAmount();
-            userProfiles.add(profile);
-        }
-        userProfileRepository.findAll();
-        model.addAttribute("usersAmount", userProfiles.size());
-        model.addAttribute("gamesAmount", allGames / 2);
 
         if (error != null) {
             model.addAttribute("error", "Invalid username or password!");
@@ -69,6 +59,7 @@ public class AuthController {
         }
 
         return "login";
+
     }
 
     @RequestMapping(value = "/enter_anonymously", method = RequestMethod.POST)
@@ -89,7 +80,6 @@ public class AuthController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         SecurityContextHolder.getContext().setAuthentication(null);
-
         return "redirect:/login";
     }
 

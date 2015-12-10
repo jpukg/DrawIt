@@ -1,0 +1,45 @@
+2015-12-10 23:55:47,331 DEBUG jpa.HibernatePersistenceProvider Logging Provider: org.jboss.logging.Log4j2LoggerProvider - (HibernatePersistenceProvider.java:55) - 
+2015-12-10 23:55:47,557 INFO  util.LogHelper HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] - (LogHelper.java:46) - 
+2015-12-10 23:55:48,015 INFO  hibernate.Version HHH000412: Hibernate Core {4.3.7.Final} - (Version.java:54) - 
+2015-12-10 23:55:48,019 INFO  cfg.Environment HHH000206: hibernate.properties not found - (Environment.java:239) - 
+2015-12-10 23:55:48,024 INFO  cfg.Environment HHH000021: Bytecode provider name : javassist - (Environment.java:346) - 
+2015-12-11 00:04:24,168 DEBUG jpa.HibernatePersistenceProvider Logging Provider: org.jboss.logging.Log4j2LoggerProvider - (HibernatePersistenceProvider.java:55) - 
+2015-12-11 00:04:24,251 INFO  util.LogHelper HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] - (LogHelper.java:46) - 
+2015-12-11 00:04:24,388 INFO  hibernate.Version HHH000412: Hibernate Core {4.3.7.Final} - (Version.java:54) - 
+2015-12-11 00:04:24,392 INFO  cfg.Environment HHH000206: hibernate.properties not found - (Environment.java:239) - 
+2015-12-11 00:04:24,396 INFO  cfg.Environment HHH000021: Bytecode provider name : javassist - (Environment.java:346) - 
+2015-12-11 00:16:48,860 DEBUG jpa.HibernatePersistenceProvider Logging Provider: org.jboss.logging.Log4j2LoggerProvider - (HibernatePersistenceProvider.java:55) - 
+2015-12-11 00:16:49,667 INFO  util.LogHelper HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] - (LogHelper.java:46) - 
+2015-12-11 00:16:49,802 INFO  hibernate.Version HHH000412: Hibernate Core {4.3.7.Final} - (Version.java:54) - 
+2015-12-11 00:16:49,805 INFO  cfg.Environment HHH000206: hibernate.properties not found - (Environment.java:239) - 
+2015-12-11 00:16:49,809 INFO  cfg.Environment HHH000021: Bytecode provider name : javassist - (Environment.java:346) - 
+2015-12-11 00:23:12,674 DEBUG jpa.HibernatePersistenceProvider Logging Provider: org.jboss.logging.Log4j2LoggerProvider - (HibernatePersistenceProvider.java:55) - 
+2015-12-11 00:23:13,003 DEBUG jpa.HibernatePersistenceProvider Logging Provider: org.jboss.logging.Log4j2LoggerProvider - (HibernatePersistenceProvider.java:55) - 
+2015-12-11 00:23:13,562 INFO  util.LogHelper HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] - (LogHelper.java:46) - 
+2015-12-11 00:23:13,735 INFO  hibernate.Version HHH000412: Hibernate Core {4.3.7.Final} - (Version.java:54) - 
+2015-12-11 00:23:13,739 INFO  cfg.Environment HHH000206: hibernate.properties not found - (Environment.java:239) - 
+2015-12-11 00:23:13,744 INFO  cfg.Environment HHH000021: Bytecode provider name : javassist - (Environment.java:346) - 
+2015-12-11 00:23:14,003 INFO  util.LogHelper HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] - (LogHelper.java:46) - 
+2015-12-11 00:23:14,203 INFO  hibernate.Version HHH000412: Hibernate Core {4.3.7.Final} - (Version.java:54) - 
+2015-12-11 00:23:14,208 INFO  cfg.Environment HHH000206: hibernate.properties not found - (Environment.java:239) - 
+2015-12-11 00:23:14,212 INFO  cfg.Environment HHH000021: Bytecode provider name : javassist - (Environment.java:346) - 
+2015-12-11 00:33:13,558 DEBUG jpa.HibernatePersistenceProvider Logging Provider: org.jboss.logging.Log4j2LoggerProvider - (HibernatePersistenceProvider.java:55) - 
+2015-12-11 00:40:13,571 DEBUG jpa.HibernatePersistenceProvider Logging Provider: org.jboss.logging.Log4j2LoggerProvider - (HibernatePersistenceProvider.java:55) - 
+2015-12-11 00:40:29,273 DEBUG jpa.HibernatePersistenceProvider Logging Provider: org.jboss.logging.Log4j2LoggerProvider - (HibernatePersistenceProvider.java:55) - 
+2015-12-11 00:40:51,496 DEBUG jpa.HibernatePersistenceProvider Logging Provider: org.jboss.logging.Log4j2LoggerProvider - (HibernatePersistenceProvider.java:55) - 
+2015-12-11 00:40:52,246 INFO  util.LogHelper HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...] - (LogHelper.java:46) - 
+2015-12-11 00:40:52,383 INFO  hibernate.Version HHH000412: Hibernate Core {4.3.7.Final} - (Version.java:54) - 
+2015-12-11 00:40:52,387 INFO  cfg.Environment HHH000206: hibernate.properties not found - (Environment.java:239) - 
+2015-12-11 00:40:52,390 INFO  cfg.Environment HHH000021: Bytecode provider name : javassist - (Environment.java:346) - 

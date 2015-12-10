@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <table name="USER_PROFILE">
+        <column>id</column>
+        <column>name</column>
+        <column>country</column>
+        <column>telephone</column>
+        <column>email</column>
+        <column>surname</column>
+        <column>game_amount</column>
+        <column>point_amount</column>
+        <row>
+            <value>1</value>
+            <value>Tomas</value>
+            <value>USA</value>
+            <value>+1 212-355-3000</value>
+            <value>tomas@gmail</value>
+            <value>11</value>
+            <value>34</value>
+        </row>
+    </table>
+</dataset>

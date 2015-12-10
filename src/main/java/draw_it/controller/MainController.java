@@ -7,10 +7,7 @@ import draw_it.data.message.RoomMessage;
 import draw_it.data.room.Room;
 import draw_it.data.room.RoomLifeCycle;
 import draw_it.data.room.RoomRepository;
-import draw_it.data.user.AuthUser;
-import draw_it.data.user.AuthUserRepository;
 import draw_it.data.user.User;
-import draw_it.data.user.UserProfile;
 import draw_it.data.user.users_registration.UserProfileRepository;
 import draw_it.data.words.WordService;
 import draw_it.utils.AtmosphereUtils;
@@ -19,7 +16,6 @@ import draw_it.utils.SecurityUtils;
 import org.atmosphere.cpr.AtmosphereResource;
 import org.atmosphere.cpr.Broadcaster;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,10 +25,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 @Controller
 public class MainController {
@@ -44,10 +36,6 @@ public class MainController {
     @Autowired
     private RoomRepository roomRepository;
 
-    @Autowired
-    @Qualifier("authUserRepository")
-    private AuthUserRepository userRepository;
-
     // For room lifecycle.
     @Autowired
     private WordService wordService;
@@ -55,20 +43,8 @@ public class MainController {
     private UserProfileRepository userProfileRepository;
 
     @RequestMapping(value = {"/", "main"}, method = RequestMethod.GET)
-    public ModelAndView main() {
-        int allGames = 0;
-        List<UserProfile> userProfiles = new ArrayList<>();
-        for (UserProfile profile : userProfileRepository.findAll()) {
-            allGames += profile.getGameAmount();
-        }
-        userProfileRepository.findAll();
-
-        ModelAndView model = new ModelAndView();
-        model.setViewName("main");
-        model.addObject("usersAmount", userProfiles.size());
-        model.addObject("gamesAmount", allGames / 2);
-
-        return model;
+    public String main(Model model) {
+        return "main";
     }
 
     @RequestMapping(value = "/roomlist/atm", method = RequestMethod.GET)
@@ -162,27 +138,4 @@ public class MainController {
 
         return "redirect:/main";
     }
-
-    @RequestMapping("/rating")
-    public ModelAndView showRating() {
-        List<UserProfile> userProfiles = new ArrayList<>();
-        for (UserProfile profile : userProfileRepository.findAll()) {
-            userProfiles.add(profile);
-        }
-        Collections.sort(userProfiles, new Comparator<UserProfile>() {
-            @Override
-            public int compare(UserProfile o1, UserProfile o2) {
-                long res1 = o1.getGameAmount() * o1.getPointAmount();
-                long res2 = o2.getGameAmount() * o2.getPointAmount();
-                return (int) (res2 - res1);
-            }
-        });
-
-        ModelAndView model = new ModelAndView();
-        model.setViewName("rating");
-        model.addObject("userProfiles", userProfiles);
-
-        return model;
-    }
-
 }
