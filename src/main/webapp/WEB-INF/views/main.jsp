@@ -32,10 +32,24 @@
         <c:url value="/j_spring_security_logout" var="logoutUrl"/>
         <form action="${logoutUrl}" method="post" id="logoutForm"/>
 
+        <c:url value="/my_profile" var="profileUrl"/>
+
+        <a href="rating" class="button" style="height: 25px;">
+            <i class="fa fa-sign-out"></i>
+            Rating
+        </a>
+        <br/>
+
+        <a href="${profileUrl}" style="height: 25px;" class="button">
+            <i class="icon-user"></i>
+            Profile</a>
+        <br/>
+
         <a href="javascript:logout();" class="button" style="height: 25px;">
             <i class="fa fa-sign-out"></i>
             Sign out
         </a>
+
     </sec:authorize>
 
     <sec:authorize access="hasRole('ROLE_FREE')">

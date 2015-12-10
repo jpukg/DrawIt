@@ -34,10 +34,12 @@
     <c:if test="${not empty msg}">
         <div class="msg">${msg}</div>
     </c:if>
+
     <div class="testbox">
         <h1>Welcome!</h1>
+        <h5 align="center"> ${gamesAmount} games by ${usersAmount} users were played! </h5>
         <c:url value='/j_spring_security_check' var="loginUrl"/>
-        <form name='loginForm'
+           <form name='loginForm'
               action="${loginUrl}" method='POST'>
             <hr>
             <label id="icon" for="name"><i class="icon-user"></i></label>

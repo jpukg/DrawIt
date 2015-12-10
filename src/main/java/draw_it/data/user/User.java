@@ -7,13 +7,14 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     public User() {
+
     }
 
     public User(User user) {
-        this.login = user.login;
-        this.password = user.password;
-        this.role = user.role;
-        this.profile = user.profile;
+        login = user.login;
+        password = user.password;
+        role = user.role;
+        profile = user.profile;
     }
 
     protected String login;

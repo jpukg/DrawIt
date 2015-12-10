@@ -1,8 +1,10 @@
 package draw_it.utils;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import draw_it.data.message.ChatMessage;
 import draw_it.data.message.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +31,6 @@ public final class MessageUtils {
 
         for (Message message : messages) {
             String jsonMessage = objectMapper.writeValueAsString(message);
-
             result.append(jsonMessage);
             result.append(", ");
         }

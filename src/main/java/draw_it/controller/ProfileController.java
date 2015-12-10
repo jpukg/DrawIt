@@ -184,6 +184,8 @@ public class ProfileController {
                     userProfile.getSurname().equals(userProfileExisted.getSurname()) && country.equals(userProfileExisted.getCountry()) &&
                     avatar.getBytes().length == 0 && login.equals(userProfileService.getLogin(id))
             ));
+//            &&
+//                    avatar.getBytes().length==0 && login.equals(userProfileService.getLogin(id)))
 
             if (userProfile.getName().equals(userProfileExisted.getName()) && userProfile.getEmail().equals(userProfileExisted.getEmail()) &&
                     userProfile.getSurname().equals(userProfileExisted.getSurname()) && country.equals(userProfileExisted.getCountry()) &&

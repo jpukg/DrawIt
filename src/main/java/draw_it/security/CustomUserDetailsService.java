@@ -28,6 +28,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         User user = null;
         if (username.equals(FreeUser.FREE_USER_LOGIN)) {
+            // A small crutch.
             user = new FreeUser();
         } else {
             user = userRepository.findByLogin(username);
@@ -41,8 +42,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final static class CustomUserDetails extends User implements UserDetails {
 
-		private static final long serialVersionUID = 2255333352L;
-	
         public CustomUserDetails(User user) {
             super(user);
         }
@@ -70,6 +69,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         public boolean isEnabled() {
             return true;
         }
+
+        private static final long serialVersionUID = 2255333352L;
 
     }
 }

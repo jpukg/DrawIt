@@ -86,7 +86,7 @@
                     </div>
                     <div style="position: relative; bottom: -7px;">
                         <input id="message-field" type="text" size="40" placeholder="Message text"/>
-                        <input id="message-button" type="button" class="button" value="Send" />
+                        <input id="message-button" type="button" class="button" value="Send" onclick="sendChatMessage();"/>
                     </div>
                 </div>
             </div>
@@ -114,6 +114,90 @@
 <script type="text/javascript">
     var appModel;
     var drawingAppModel;
+
+    $(document).keypress(function(e) {
+        $('#message-field').focus();
+        if(e.which == 13 && $('#message-button').attr('disabled') != 'disabled') {
+            sendChatMessage();
+        }
+    });
+    $(function () {
+        var targetUrl = "${fn:replace(r.requestURL, r.requestURI, '')}${r.contextPath}/room/" + ${roomId};
+
+        var canvas = document.getElementById("can");
+        drawingAppModel = new DrawingAppModel();
+        drawingAppModel.init(canvas, canvas);
+
+        appModel = new RoomAppModel(drawingAppModel);
+        appModel.myLogin = "${pageContext.request.userPrincipal.name}";
+        // Timer constants.
+        appModel.gameInterval = ${gameInterval};
+        appModel.turnInterval = ${turnInterval};
+
+        appModel.connect(targetUrl);
+        ko.applyBindings(appModel);
+
+        var timer = setTimeout(function tick() {
+
+            if (drawingAppModel.points.length > 0
+                    && !(drawingAppModel.points.length == 1 && drawingAppModel.points[0].x == -1)) {
+                appModel.sendDrawMessage(new DrawMessage({"points": drawingAppModel.points}));
+                drawingAppModel.points.length = 0;
+            }
+            timer = setTimeout(tick, 350);
+        }, 350);
+
+        var timer2 = setTimeout(function tick() {
+            var delta = new Date()-appModel.lastTime;
+            var delta2;
+            if (appModel.isGameInProcess){
+                delta2 = appModel.turnInterval - delta;
+            } else{
+                delta2 = appModel.gameInterval - delta;
+            }
+            if (delta2<0){
+                delta2 = 0;
+            }
+            var newDate = new Date(delta2);
+            var m=newDate.getMinutes();
+            var s=newDate.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('clock').innerHTML = m+":"+s;
+            timer = setTimeout(tick, 1000);
+        }, 1000);
+
+
+    function checkTime(i) {
+        if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+        return i;
+    }
+
+        // Clock.
+//        (function startTime() {
+//            var today=new Date();
+//            var h=today.getHours();
+//            var m=today.getMinutes();
+//            var s=today.getSeconds();
+//            m = checkTime(m);
+//            s = checkTime(s);
+//            document.getElementById('clock').innerHTML = h+":"+m+":"+s;
+//            var t = setTimeout(function(){startTime()},500);
+//        })();
+//
+//        function checkTime(i) {
+//            if (i<10) {i = "0" + i};  // add zero in front of numbers < 10
+//            return i;
+//        }
+    });
+
+    function sendChatMessage() {
+        var message = new ChatMessage({"text": $('#message-field').val().trim()});
+        if(message.text.length > 0) {
+            appModel.sendChatMessage(message);
+            $('#message-field').val("");
+        }
+    }
 
     function leaveRoom() {
         window.location.href = "/room/leave/" + ${roomId};
